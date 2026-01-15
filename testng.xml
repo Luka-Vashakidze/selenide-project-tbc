@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TBC Final Project Suite" parallel="classes" thread-count="3">
+
+    <test name="Desktop Tests">
+        <parameter name="browserSize" value="1920x1080"/>
+
+        <classes>
+            <class name="ge.tbc.testautomation.tests.TbcAtmFilterTest"/>
+            <class name="ge.tbc.testautomation.tests.TbcSearchTest"/>
+            <class name="ge.tbc.testautomation.tests.TbcLoanValidationTest"/>
+            <class name="ge.tbc.testautomation.tests.TbcOffersTest"/>
+            <class name="ge.tbc.testautomation.tests.TbcTechSchoolNavigateToRegistrationTest"/>
+        </classes>
+    </test>
+
+    <test name="Mobile Tests">
+        <parameter name="browserSize" value="375x812"/>
+        <classes>
+            <class name="ge.tbc.testautomation.tests.TbcSearchTest"/>
+        </classes>
+    </test>
+
+</suite>
