@@ -1,9 +1,14 @@
 package ge.tbc.testautomation.pages;
 
-import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Selenide.$x;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+
 
 public class CourseDetailsPage {
 
-    public SelenideElement registrationButton = $x("//div[contains(@class,'button-wrapper')]//a[contains(@href,'forms')]");
+    public Locator registrationButton;
+
+    public CourseDetailsPage(Page page) {
+        this.registrationButton = page.locator("//div[contains(@class,'button-wrapper')]//a[contains(@href,'forms')]");
+    }
 }

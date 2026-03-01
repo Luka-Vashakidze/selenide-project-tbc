@@ -1,15 +1,26 @@
 package ge.tbc.testautomation.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class OffersPage {
+    Page page;
 
-    public SelenideElement moreButton = $x("//button[contains(text(),'ვრცლად')]");
-    public SelenideElement autoFilterCheckbox = $x("//div[contains(@class,'filter-item__label')]//input[@type='checkbox']/following-sibling::text()[contains(.,'ავტო')]/..");
+    public Locator moreButton;
+    public Locator autoFilterCheckbox;
+    public Locator firstOfferCard;
 
-    public SelenideElement firstOfferCard = $x("(//a[tbcx-pw-card])[1]");
+    public OffersPage(Page page) {
+        this.page = page;
+        this.moreButton = page.locator("tbcx-pw-slider").getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("ვრცლად"));
+        this.autoFilterCheckbox = page.locator(".filter-item").filter(new Locator.FilterOptions().setHasText("ავტო")).locator("input[type='checkbox']");
+        this.firstOfferCard = page.locator("//a[tbcx-pw-card]").first();
+    }
+    public Locator filterCheckbox(String filterName) {
+        return page.locator(".filter-item")
+                .filter(new Locator.FilterOptions().setHasText(filterName))
+                .locator("input[type='checkbox']");
+    }
 }

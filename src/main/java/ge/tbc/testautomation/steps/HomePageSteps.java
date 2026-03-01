@@ -1,49 +1,65 @@
 package ge.tbc.testautomation.steps;
 
+import com.microsoft.playwright.Page;
 import ge.tbc.testautomation.pages.HomePage;
-
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.actions;
 
 public class HomePageSteps {
 
-    HomePage homePage = new HomePage();
+    HomePage homePage;
+    Page page;
+
+    public HomePageSteps(Page page) {
+        this.page = page;
+        this.homePage = new HomePage(page);
+    }
+
+    boolean isMobileViewport() {
+        return page.viewportSize().width < 1024;
+    }
 
     public HomePageSteps openHeaderForMeSection() {
-        if (homePage.burgerMenu.is(visible)) {
+        if (isMobileViewport()) {
             homePage.burgerMenu.click();
-            homePage.forMeMenu.shouldBe(visible).click();
+            homePage.mobileForMeButton.click();
         } else {
-            actions().moveToElement(homePage.forMeMenu.shouldBe(visible)).perform();
+            homePage.forMeNavItem.hover();
         }
         return this;
     }
+
     public HomePageSteps openConsumerLoanPage() {
-        if (homePage.mobileLoansDropdown.is(visible)) {
-            homePage.mobileLoansDropdown.click();
+        if (isMobileViewport()) {
+            homePage.mobileLoansAccordion.click();
+        } else {
+            homePage.forMeNavItem.hover();
         }
-        homePage.consumerLoanLink.shouldBe(visible).click();
+        homePage.consumerLoanLink.click();
         return this;
     }
+
     public HomePageSteps openLocationsPage() {
-        homePage.locationsLink.shouldBe(visible).click();
+        if (isMobileViewport()) {
+            homePage.burgerMenu.click();
+            homePage.locationsQuickAction.click();
+        } else {
+            homePage.forMeNavItem.hover();
+            homePage.locationsQuickAction.click();
+        }
         return this;
     }
 
     public HomePageSteps openTbcMenu() {
-        if (homePage.burgerMenu.is(visible)) {
+        if (isMobileViewport()) {
             homePage.burgerMenu.click();
-            homePage.tbcMenu.shouldBe(visible).click();
+            homePage.mobileTbcButton.click();
         } else {
-            actions().moveToElement(homePage.tbcMenu.shouldBe(visible)).perform();
+            homePage.tbcNavItem.hover();
         }
         return this;
     }
 
     public HomePageSteps openTechSchool() {
-        homePage.techSchoolLink.scrollTo().shouldBe(visible).click();
-            return this;
-
+        homePage.techSchoolLink.click();
+        return this;
     }
-
 }

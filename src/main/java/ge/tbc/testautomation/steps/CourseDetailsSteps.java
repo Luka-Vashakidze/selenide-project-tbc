@@ -1,14 +1,18 @@
 package ge.tbc.testautomation.steps;
 
+import com.microsoft.playwright.Page;
 import ge.tbc.testautomation.pages.CourseDetailsPage;
-import static com.codeborne.selenide.Condition.visible;
 
 public class CourseDetailsSteps {
 
-    CourseDetailsPage courseDetailsPage = new CourseDetailsPage();
+    CourseDetailsPage courseDetailsPage;
+
+    public CourseDetailsSteps(Page page) {
+        this.courseDetailsPage = new CourseDetailsPage(page);
+    }
 
     public CourseDetailsSteps clickRegistrationButton() {
-        courseDetailsPage.registrationButton.shouldBe(visible).click();
+        courseDetailsPage.registrationButton.click();
         return this;
     }
 }

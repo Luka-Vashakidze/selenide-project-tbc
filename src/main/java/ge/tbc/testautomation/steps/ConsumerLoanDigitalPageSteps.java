@@ -1,26 +1,23 @@
 package ge.tbc.testautomation.steps;
 
-import com.codeborne.selenide.Condition;
-import ge.tbc.testautomation.pages.ConsumerLoanPage;
+import com.microsoft.playwright.Page;
 import ge.tbc.testautomation.pages.ConsumerLoanDigitalPage;
-import ge.tbc.testautomation.pages.HomePage;
 import org.testng.Assert;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.actions;
 
-public class ConsumerLoanDigitalPageSteps    {
-    ConsumerLoanDigitalPage loanDigitalPage = new ConsumerLoanDigitalPage();
+public class ConsumerLoanDigitalPageSteps {
+    ConsumerLoanDigitalPage loanDigitalPage;
 
+    public ConsumerLoanDigitalPageSteps(Page page) {
+        this.loanDigitalPage = new ConsumerLoanDigitalPage(page);
+    }
     public ConsumerLoanDigitalPageSteps enterLoanAmount(String amount) {
-        loanDigitalPage.amountInput.shouldBe(visible).clear();
-        loanDigitalPage.amountInput.setValue(amount);
+        loanDigitalPage.amountInput.fill(amount);
         return this;
     }
 
     public ConsumerLoanDigitalPageSteps enterDuration(String months) {
-        loanDigitalPage.durationInput.shouldBe(visible).clear();
-        loanDigitalPage.durationInput.setValue(months);
+        loanDigitalPage.durationInput.fill(months);
         return this;
     }
     public ConsumerLoanDigitalPageSteps validateMonthlyPayment(double amount, int months, double annualRate, double delta) {
@@ -37,7 +34,8 @@ public class ConsumerLoanDigitalPageSteps    {
     }
     public double getUiMonthlyPayment() {
         StringBuilder sb = new StringBuilder();
-        loanDigitalPage.paymentDigits.forEach(el -> sb.append(el.getText()));
+//        loanDigitalPage.paymentDigits.forEach(el -> sb.append(el.getText()));
+        loanDigitalPage.paymentDigits.all().forEach(el -> sb.append(el.textContent()));
         return Double.parseDouble(sb.toString());
     }
 }

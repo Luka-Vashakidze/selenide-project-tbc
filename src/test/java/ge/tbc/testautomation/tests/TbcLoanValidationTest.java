@@ -1,36 +1,25 @@
 package ge.tbc.testautomation.tests;
 
-import ge.tbc.testautomation.steps.ConsumerLoanDigitalPageSteps;
-import ge.tbc.testautomation.steps.ConsumerLoanPageSteps;
 import org.testng.annotations.Test;
 
 public class TbcLoanValidationTest extends BaseTest{
 
-
-    @Test(groups = {"loan"}, description = "navigate to header")
-    public void openForMeSection(){
-        homePageSteps.
-                openHeaderForMeSection();
-
-    }
-    @Test(groups = {"loan"}, description = "open loans link", dependsOnMethods = "openForMeSection")
-    public void openLoansLink(){
+    @Test(groups = {"loan"}, description = "Navigate to consumer loan page")
+    public void navigateToConsumerLoanPage(){
         homePageSteps.openConsumerLoanPage();
-
     }
 
-    @Test(groups = {"loan"}, description = "open conditions page", dependsOnMethods = "openLoansLink")
-    public void navigateToLoanPage(){
+    @Test(groups = {"loan"}, description = "Open loan conditions page", dependsOnMethods = "navigateToConsumerLoanPage")
+    public void navigateToLoanConditionsPage(){
         consumerLoanPageSteps.openLoanConditionsPage();
-
     }
-    @Test(groups = {"loan"}, description = "Validate loan monthly payment is correct", dependsOnMethods = "navigateToLoanPage")
+
+    @Test(groups = {"loan"}, description = "Validate loan monthly payment is correct", dependsOnMethods = "navigateToLoanConditionsPage")
     public void testLoanCalculation() {
         loanSteps
                 .enterLoanAmount("1000")
                 .enterDuration("30")
                 .validateMonthlyPayment(1000, 30, 0.099, 1.0);
-
 
     }
 }
