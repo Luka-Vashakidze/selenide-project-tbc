@@ -1,45 +1,52 @@
 package ge.tbc.testautomation.steps;
 
-import ge.tbc.testautomation.pages.HomePage;
+import com.microsoft.playwright.Page;
 import ge.tbc.testautomation.pages.OffersPage;
 import ge.tbc.testautomation.pages.OfferDetailsPage;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.actions;
+public class OffersSteps extends HomePageSteps {
 
-public class OffersSteps extends HomePageSteps{
+    OffersPage offersPage;
+    OfferDetailsPage offerDetailsPage;
 
-    OffersPage offersPage = new OffersPage();
-    OfferDetailsPage offerDetailsPage = new OfferDetailsPage();
+    public OffersSteps(Page page) {
+        super(page);
+        this.offersPage = new OffersPage(page);
+        this.offerDetailsPage = new OfferDetailsPage(page);
+    }
 
+    @Override
     public OffersSteps openHeaderForMeSection() {
-        actions().moveToElement(homePage.forMeMenu.shouldBe(visible)).perform();
-
+        super.openHeaderForMeSection();
         return this;
     }
-    public OffersSteps openOffersSection() {
-        homePage.offersLink.shouldBe(visible).click();
 
+    public OffersSteps openOffersSection() {
+        homePage.offersQuickAction.click();
         return this;
     }
 
     public OffersSteps clickMoreButton() {
-        offersPage.moreButton.shouldBe(visible).click();
+        offersPage.moreButton.click();
         return this;
     }
 
     public OffersSteps filterAuto() {
-        offersPage.autoFilterCheckbox.shouldBe(visible).click();
+        offersPage.autoFilterCheckbox.click();
         return this;
     }
 
     public OffersSteps openFirstOffer() {
-        offersPage.firstOfferCard.shouldBe(visible).click();
+        offersPage.firstOfferCard.click();
         return this;
     }
 
     public OffersSteps clickShare() {
-        offerDetailsPage.shareButton.shouldBe(visible).click();
+        offerDetailsPage.shareButton.click();
+        return this;
+    }
+    public OffersSteps filterByName(String filterName) {
+        offersPage.filterCheckbox(filterName).click();
         return this;
     }
 }

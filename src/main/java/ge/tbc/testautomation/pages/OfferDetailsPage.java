@@ -1,10 +1,14 @@
 package ge.tbc.testautomation.pages;
 
-import com.codeborne.selenide.SelenideElement;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 
-import static com.codeborne.selenide.Selenide.$x;
 
 public class OfferDetailsPage {
 
-    public SelenideElement shareButton = $x("//div[contains(@class,'app-textpage-bottom__share')]");
+    public Locator shareButton;
+
+    public OfferDetailsPage(Page page) {
+        this.shareButton = page.locator("//div[contains(@class,'app-textpage-bottom__share')]");
+    }
 }

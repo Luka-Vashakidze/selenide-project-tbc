@@ -1,16 +1,19 @@
 package ge.tbc.testautomation.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 
 public class TechSchoolPage {
+    Page page;
 
-    public ElementsCollection courseCards =
-            $$x("//div[contains(@class,'tbcx-pw-carousel__card')]");
+    public Locator courseCards;
 
-    public SelenideElement courseLinkByIndex(int index) {
-        return $x("(//div[contains(@class,'tbcx-pw-carousel__card')]//a)[" + index + "]");
+    public Locator courseLinkByIndex(int index) {
+        return page.locator("(//div[contains(@class,'tbcx-pw-carousel__card')]//a)[" + index + "]");
+    }
+
+    public TechSchoolPage(Page page) {
+        this.page = page;
+        this.courseCards = page.locator("//div[contains(@class,'tbcx-pw-carousel__card')]");
     }
 }

@@ -1,6 +1,5 @@
 package ge.tbc.testautomation.tests;
 
-import ge.tbc.testautomation.steps.OffersSteps;
 import org.testng.annotations.Test;
 
 public class TbcOffersTest extends BaseTest {

@@ -1,10 +1,6 @@
 package ge.tbc.testautomation.tests;
 
-import ge.tbc.testautomation.steps.HomePageSteps;
-import ge.tbc.testautomation.steps.LocationPageSteps;
 import org.testng.annotations.Test;
-
-import static ge.tbc.testautomation.data.Constants.CITY_TBILISI;
 
 public class TbcAtmFilterTest extends BaseTest {
 

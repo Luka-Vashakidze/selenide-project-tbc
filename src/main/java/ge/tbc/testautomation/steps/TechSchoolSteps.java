@@ -1,23 +1,26 @@
 package ge.tbc.testautomation.steps;
 
+import com.microsoft.playwright.Page;
 import ge.tbc.testautomation.pages.TechSchoolPage;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Condition.visible;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class TechSchoolSteps {
 
-    TechSchoolPage techSchoolPage = new TechSchoolPage();
+    TechSchoolPage techSchoolPage;
+
+    public TechSchoolSteps(Page page) {
+        this.techSchoolPage = new TechSchoolPage(page);
+    }
 
     public int getNumberOfCourses() {
-        return techSchoolPage.courseCards.shouldHave(sizeGreaterThan(0)).size();
+        assertThat(techSchoolPage.courseCards.first()).isVisible();
+        return techSchoolPage.courseCards.count();
     }
 
     public TechSchoolSteps clickCourseByIndex(int index) {
-        techSchoolPage.courseLinkByIndex(index)
-                .scrollTo()
-                .shouldBe(visible)
-                .click();
+        techSchoolPage.courseLinkByIndex(index).scrollIntoViewIfNeeded();
+        techSchoolPage.courseLinkByIndex(index).click();
         return this;
     }
 }

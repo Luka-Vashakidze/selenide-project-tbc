@@ -1,18 +1,20 @@
 package ge.tbc.testautomation.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
 
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class ConsumerLoanDigitalPage {
 
-        public SelenideElement amountInput = $x("//input[@type='number' and @min='200' and @max='80000']");
+        public Locator amountInput;
 
-        public SelenideElement durationInput = $x("//input[@type='number' and @min='3' and @max='48']");
+        public Locator durationInput;
 
-        public ElementsCollection paymentDigits = $$x("//div[contains(@class,'tbcx-pw-calculated-info__number--new')]/span[not(contains(text(),'₾'))]");
+        public Locator paymentDigits;
 
-
+        public ConsumerLoanDigitalPage(Page page) {
+                this.amountInput = page.locator("//input[@type='number' and @min='200' and @max='80000']");
+                this.durationInput = page.locator("//input[@type='number' and @min='3' and @max='48']");
+                this.paymentDigits = page.locator("//div[contains(@class,'tbcx-pw-calculated-info__number--new')]/span[not(contains(text(),'₾'))]");
+        }
 }

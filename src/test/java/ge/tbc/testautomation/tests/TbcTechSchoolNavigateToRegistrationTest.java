@@ -1,8 +1,5 @@
 package ge.tbc.testautomation.tests;
 
-import ge.tbc.testautomation.steps.CourseDetailsSteps;
-import ge.tbc.testautomation.steps.HomePageSteps;
-import ge.tbc.testautomation.steps.TechSchoolSteps;
 import org.testng.annotations.Test;
 
 public class TbcTechSchoolNavigateToRegistrationTest extends BaseTest {
